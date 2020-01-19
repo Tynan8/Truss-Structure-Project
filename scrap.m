@@ -1,3 +1,4 @@
+# Scrap test code
 
 for M = 1 : length(memnod)
     hold on

@@ -1,9 +1,9 @@
 function [f,R,df] = Structure_Analysis(T,N,W,E)
 format long g
-T = round(T);
-N = round(N);
-W = round(W);
-M = 2*N-3;
+T = round(T);   # T = Structure type
+N = round(N);   # N = Number of nodes
+W = round(W);   # W = Work load
+M = 2*N-3;      # M = Number of members
 
 %Tower
 if T == 1
@@ -12,8 +12,8 @@ if T == 1
     B = atan(sqrt(3)/2);   %beta
     t = pi/3;              %theta
     b = zeros(16,1);
-    b(16,1) = W;
-    A = [cos(a) cos(B) 0 0 0 0 0 0 0 0 0 0 0 1 0 0;
+    b(16,1) = W;    
+    A = [cos(a) cos(B) 0 0 0 0 0 0 0 0 0 0 0 1 0 0;     #Coefficient matrix
         sin(a) sin(B) 0 0 0 0 0 0 0 0 0 0 0 0 1 0;
         0 0 -cos(B) -cos(a) 0 0 0 0 0 0 0 0 0 0 0 0;
         0 0 sin(B) sin(a) 0 0 0 0 0 0 0 0 0 0 0 1;
@@ -29,9 +29,9 @@ if T == 1
         0 0 0 0 0 0 0 0 -sin(t) -sin(t) 0 0 sin(a) 0 0 0;
         0 0 0 0 0 0 0 0 0 0 0 -cos(a) cos(a) 0 0 0;
         0 0 0 0 0 0 0 0 0 0 0 -sin(a) -sin(a) 0 0 0];
-    X = pinv(A)*b;
-    f = X(1:13,1);
-    R = X(14:16,1);
+    X = pinv(A)*b;   # Force array
+    f = X(1:13,1);   # Member forces
+    R = X(14:16,1);  # Reactive forces
 end
 
 %Crane
@@ -64,7 +64,7 @@ if T == 3
     t = pi/3;           %theta
     b = zeros(2*N,1);
     b(N+1,1) = W;
-    A = zeros(2*N,2*N);
+    A = zeros(2*N,2*N);                         #Coefficient matrix (dependent on 'N')
     A(1,8) = 1; A(1,1) = cos(t); A(1,2) = 1;
     A(2,9) = 1; A(2,1) = sin(t);
     A(3,1) = -cos(t); A(3,3) = cos(t); A(3,4) = 1;

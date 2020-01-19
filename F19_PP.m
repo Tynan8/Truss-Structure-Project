@@ -181,7 +181,7 @@ PT = Pm + Pf + Pt;
 
 %Forces and Deformations
 E = materials(material,2);
-E = E*10^9;
+E = E*10^9;     # Young's modulus
 dfm = Wmax/(E*10^-4)*100;
 [f,R,df] = Structure_Analysis(T,N,W,E);
 
